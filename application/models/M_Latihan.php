@@ -37,7 +37,7 @@ class M_Latihan extends CI_Model
 	{
 		$this->make_query();
 
-		if($_POST["length"] != -1){
+		if(isset($_POST["length"])){
 			$this->db->limit($_POST["length"], $_POST["start"]);
 		}
 
