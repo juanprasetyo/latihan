@@ -45,6 +45,11 @@
                       <li><a href="<?= base_url('cetakSurat') ?>" target="_blank">Surat</a></li>
                   </ul>
               </li>
+              <li>
+                  <a href="<?= base_url('color')?>"><i class="fa fa-paint-brush"></i>
+                      <span>Color</span>
+                  </a>
+              </li>
           </ul>
           <!-- /.sidebar-menu -->
       </section>

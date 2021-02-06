@@ -119,4 +119,142 @@ class C_Latihan extends CI_Controller
 
 		$pdf->Output("nana.pdf", "I");
 	}
+
+
+	//  Mirroring data admin-buyer
+	public function mirroring_data(){
+		$id_user = $this->M_Login->get_data_byData('email', $this->session->userdata('email'))->row_array()['user_id'];
+		print_r($id_user);
+
+		$isAdmin = $this->M_Latihan->get_admin_byId($id_user);
+		$isKoor	 = $this->M_Latihan->get_koor_byId($id_user);
+
+		if(count($isAdmin) > 0){
+			$data = $isAdmin['id_buyer'];
+			echo "Admin";
+		} else if (count($isKoor) > 0){
+			$data = $isKoor['id_buyer'];
+			echo "Koordinator";
+		} else {
+			$data = "User ini hanyalah buyer";
+		}
+
+		echo "<pre>";
+		print_r($data);
+		die;
+	}
+
+	public function edit_user_mirroring(){
+		$data = [
+            'title'		=> 'Edit Mirroring',
+            'account' 	=> $this->M_Login->get_data_byData('email', $this->session->userdata('email'))->row_array(),
+        ];
+
+		$this->load->view('layouts/V_Header'		,$data);
+		$this->load->view('layouts/V_Sidebar'		,$data);
+		$this->load->view('pages/V_EditMirroring'	,$data);
+		$this->load->view('layouts/V_Footer'		,$data);
+	}
+
+	public function get_user_admin(){
+		$data = $this->M_Latihan->get_all_admin()->result();
+		
+		echo json_encode($data);
+	}
+	
+	public function get_user_koor(){
+		$data  = $this->M_Latihan->get_all_koor()->result();
+
+		echo json_encode($data);
+	}
+
+	public function add_user_admin(){
+		$data = [
+			'id'	   => '',
+			'id_admin' => $this->input->post('adminId'),
+			'id_buyer' => $this->input->post('buyerId'),
+		];
+
+		// echo "<pre>";
+		// print_r($data);
+		// die;
+
+		$affected = $this->M_Latihan->save_user_mirroring('admin_buyer', $data);
+		
+		if ($affected > 0) {
+			echo json_encode('success');
+		} else {
+			echo json_encode('failed');
+		}
+	}
+
+	public function edit_user_admin(){
+		$id	  = $this->input->post('id');
+		$data = [
+			'id_admin'	=> $this->input->post('adminId'),
+			'id_buyer'	=> $this->input->post('buyerId')
+		];
+		
+		$affected = $this->M_Latihan->update_user_mirroring('admin_buyer', $data, $id);
+
+		if($affected > 0){
+			echo json_encode('success');
+		} else {
+			echo json_encode('failed');
+		}
+	}
+
+	public function add_user_koor(){
+		$data = [
+			'id' 		=> '',
+			'id_koor'	=> $this->input->post('koorId'),
+			'id_buyer'	=> $this->input->post('buyerId')
+		];
+
+		$affected = $this->M_Latihan->save_user_mirroring('koor_buyer', $data);
+
+		if($affected > 0){
+			echo json_encode('success');
+		} else {
+			echo json_encode('failed');
+		}
+	}
+
+	public function edit_user_koor(){
+		$id = $this->input->post('id');
+		$data = [
+			'id_koor'	=> $this->input->post('koorId'),
+			'id_buyer'	=> $this->input->post('buyerId')
+		];
+
+		$affected = $this->M_Latihan->update_user_mirroring('koor_buyer', $data, $id);
+
+		if($affected > 0){
+			echo json_encode('success');
+		} else {
+			echo json_encode('failed');
+		}
+	}
+
+	public function delete_user_admin(){
+		$id = $this->input->post('id');
+		$affected = $this->M_Latihan->delete_user_admin($id);
+
+		if($affected > 0) {
+			echo json_encode('success');
+		} else {
+			echo json_encode('failed');
+		}
+	}
+
+	public function delete_user_koor(){
+		$id = $this->input->post('id');
+		$affected = $this->M_Latihan->delete_user_koor($id);
+
+		if($affected > 0){
+			echo json_encode('success');
+		} else {
+			echo json_encode('failed');
+		}
+	}
 }

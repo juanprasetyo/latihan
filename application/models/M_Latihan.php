@@ -11,7 +11,8 @@ class M_Latihan extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->db2 = $this->load->database('db2', true);
+		// $this->db2 = $this->load->database('db2', true);
+		$this->mirror = $this->load->database('mirroring', true);
 	}
 
 	// Query Server Side Datatables
@@ -79,5 +80,46 @@ class M_Latihan extends CI_Model
 	{
 		$this->db->where('id', $id);
 		$this->db->update('users', $data);
+	}
+
+	// Mirroring data
+	public function get_admin_byId($id){
+		return $this->mirror->query("
+			SELECT * FROM admin_buyer WHERE id_admin = '$id'
+		")->row_array();
+	}
+
+	public function get_koor_byId($id){
+		return $this->mirror->query("
+			SELECT * FROM koor_buyer WHERE id_koor = '$id'
+		")->row_array();
+	}
+
+	public function get_all_admin(){
+		return $this->mirror->query("SELECT * FROM admin_buyer");
+	}
+
+	public function get_all_koor(){
+		return $this->mirror->query("SELECT * FROM koor_buyer");
+	}
+
+	public function save_user_mirroring($table, $data){
+		$this->mirror->insert($table, $data);
+		return $this->mirror->affected_rows();
+	}
+
+	public function update_user_mirroring($table, $data, $id){
+		$this->mirror->update($table, $data, ['id' => $id]);
+		return $this->mirror->affected_rows();
+	}
+
+	public function delete_user_admin($id){
+		$this->mirror->delete('admin_buyer', ['id' => $id]);
+		return $this->mirror->affected_rows();
+	}
+
+	public function delete_user_koor($id){
+		$this->mirror->delete('koor_buyer', ['id' => $id]);
+		return $this->mirror->affected_rows();
 	}
 }

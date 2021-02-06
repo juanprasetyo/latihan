@@ -116,3 +116,25 @@ $db['db2'] = [
 	'failover' => [],
 	'save_queries' => true,
 ];
+
+$db['mirroring'] = [
+	'dsn' => '',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'mirroring_data',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => false,
+	'db_debug' => ENVIRONMENT !== 'production',
+	'cache_on' => false,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => false,
+	'compress' => false,
+	'stricton' => false,
+	'failover' => [],
+	'save_queries' => true,
+];

@@ -234,6 +234,10 @@
         }
 
     }
+
+    .swal-height {
+        height: 60vh;
+    }
     </style>
 
 

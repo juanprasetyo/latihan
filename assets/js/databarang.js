@@ -33,7 +33,10 @@ $(document).ready(function () {
             $('.body_list_barang').html(html);
         })
     }
-    showBarang();
+
+    if (window.location.href.includes('DataBarang/listBarang')) {
+        showBarang();
+    }
 
     // Datatable
     let tblListBarang = $('#tbl_list_barang').DataTable({
@@ -101,8 +104,8 @@ $(document).ready(function () {
     $('.btn-edit-barang').click(function (e) {
         e.preventDefault();
         let id = $(this).attr('id-barang'),
-            namaBarang = $(this).parents('tr').find("td:nth-child(2)").find('center').html(),
-            jumlahBarang = $(this).parents('tr').find("td:nth-child(3)").find('center').html()
+            namaBarang = $(this).parents('tr').find("td:nth-child(2)").find('center').text(),
+            jumlahBarang = $(this).parents('tr').find("td:nth-child(3)").find('center').text()
 
         $("[name='id-barang']").val(id);
         $("[name='nama-barang']").val(namaBarang);
@@ -161,7 +164,7 @@ $(document).ready(function () {
     })
 
 
-    // Menu cari barang iki js e bener durung
+    // Menu cari barang 
     $('.select-cari-barang').select2({
         minimumInputLength: 1,
         allowClear: true,

@@ -120,6 +120,7 @@ const baseurl = "<?= base_url() ?>";
  <script src="<?= base_url('assets/adminlte/') ?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
  <!-- Select 2 -->
  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+ <script src="<?= base_url('assets/axios/axios.min.js') ?>"></script>
  <!-- Custom js -->
  <script>
 $(document).ready(() => {
@@ -288,11 +289,49 @@ $(document).ready(() => {
 
     // Datepicker
     $('#inputDate').datepicker('setDate', '10/05/2020')
+
+    if (window.location.href.includes("color")) {
+        axios
+            .get(baseurl + "getColor")
+            .then(response => {
+                // console.log(response.data);
+                let html = '';
+                response.data.forEach(data => {
+                    html += /*html*/ `
+                            <div class="box color-pallete" id="color-pallete" style="width: 100px; height: 100px;display: inline-block; margin: 2px; background-color: ${data.color}; text-align: center; font-weight: bolder; color: white;">
+                                    <span class="name-color" style="display: none;">${data.color}</span>
+                            </div>
+                            `;
+                });
+                $('#box-color').html(html);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    $('#box').hover(function() {
+        $(this).find('.name-color').css("display", "block");
+        console.log('Kena');
+    })
+
+    $('#box-color').on('click', '.box', function() {
+        const el = document.createElement('textarea');
+        el.value = $(this).find('span').text();
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        $(this).append(el);
+        el.select();
+        document.execCommand("copy");
+        el.remove();
+    })
 });
  </script>
 
  <!-- Custom Js -->
- <script src="<?= base_url('assets/js/databarang.js') ?>"></script>
+ <script src="<?= base_url('assets/js/databarang.js?version=').filemtime('assets/js/databarang.js'); ?>"></script>
+ <script src="<?= base_url('assets/js/lainlain.js?version=').filemtime('assets/js/lainlain.js'); ?>"></script>
 
  </body>
 

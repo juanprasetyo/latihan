@@ -55,7 +55,7 @@ $route['translate_uri_dashes']        = false;
 
 //======================================== Admin ==========================================//
 $route['admin']                       = 'C_Admin';
-$route['userGet']                = 'C_Admin/get_user';
+$route['userGet']                     = 'C_Admin/get_user';
 $route['add']                         = 'C_Admin/tambah_user';
 $route['save']                        = 'C_Admin/save';
 $route['delete']                      = 'C_Admin/delete';
@@ -71,6 +71,18 @@ $route['profile']                     = 'C_Latihan/view_profile';
 $route['editProfile']                 = 'C_Latihan/edit_profile';
 $route['saveEditProfile']             = 'C_Latihan/save_edit_profile';
 $route['cetakSurat']                  = 'C_Latihan/cetakSurat';
+$route['color']                       = 'C_Color';
+$route['getColor']                    = 'C_Color/get_color';
+$route['mirror']                      = 'C_Latihan/mirroring_data';
+$route['editMirroring']               = 'C_Latihan/edit_user_mirroring';
+$route['getUserAdmin']                = 'C_Latihan/get_user_admin';
+$route['getUserKoor']                 = 'C_Latihan/get_user_koor';
+$route['addUserAdmin']                = 'C_Latihan/add_user_admin';
+$route['addUserKoor']                 = 'C_Latihan/add_user_koor';
+$route['editUserAdmin']               = 'C_Latihan/edit_user_admin';
+$route['editUserKoor']                = 'C_Latihan/edit_user_koor';
+$route['deleteUserAdmin']             = 'C_Latihan/delete_user_admin';
+$route['deleteUserKoor']              = 'C_Latihan/delete_user_koor';
 
 //=================================== Login & Register ====================================//
 $route['register']                    = 'C_Register';
